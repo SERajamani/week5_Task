@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Continuous Image Scrolling</title>
+    <style>
+      
+        .scroll-container {
+            width: 100%;             
+            overflow: hidden;           
+            white-space: nowrap;        
+        }
+
+        .scroll-content {
+            display: inline-block;
+            animation: scroll 20s linear infinite; 
+        }
+
+        /* Animation keyframes */
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);          
+            }
+            100% {
+                transform: translateX(-100%);       
+            }
+        }
+
+
+        .scroll-content img {
+            width: 200px;              
+            height: 150px;              
+            margin-right: 10px;        
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-container">
+        <div class="scroll-content">
+            <img src="./p1.png" alt="Image 1">
+            <img src="./p2.png" alt="Image 2">
+            <img src="./p3.png" alt="Image 3">
+            <img src="./p4.png" alt="Image 4">
+            <img src="./p5.png" alt="Image 5">
+            <img src="./p6.png" alt="">
+            <img src="./p7.png" alt="">
+            <img src="./p8.png" alt="">
+            <img src="./p2.png" alt="Image 2">
+            <img src="./p3.png" alt="Image 3">
+            <img src="./p4.png" alt="Image 4">
+            <img src="./p2.png" alt="Image 2">
+            <img src="./p3.png" alt="Image 3">
+            <img src="./p4.png" alt="Image 4">
+            <!-- You can add more images as needed -->
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Activity Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+        #activity-container {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Random Activity Generator</h1>
+    <button id="activity-button">Generate Random Activity</button>
+
+    <div id="activity-container">
+        <p id="activity-text">Click the button to get a random activity!</p>
+        <p><strong>Type:</strong> <span id="activity-type"></span></p>
+        <p><strong>Participants:</strong> <span id="activity-participants"></span></p>
+        <p><strong>Price:</strong> <span id="activity-price"></span></p>
+        <p><strong>Accessibility:</strong> <span id="activity-accessibility"></span></p>
+        <p><strong>Link:</strong> <span id="activity-link"></span></p>
+    </div>
+
+    <script>
+        // Function to fetch a random activity and display it on the page
+        async function fetchActivity() {
+            try {
+                const response = await fetch('https://www.boredapi.com/api/activity');
+                const data = await response.json();
+                
+                // Update the DOM with the fetched activity
+                document.getElementById('activity-text').innerText = data.activity;
+                document.getElementById('activity-type').innerText = data.type;
+                document.getElementById('activity-participants').innerText = data.participants;
+                document.getElementById('activity-price').innerText = data.price;
+                document.getElementById('activity-accessibility').innerText = data.accessibility;
+                document.getElementById('activity-link').innerText = data.link ? data.link : 'No link available';
+            } catch (error) {
+                console.error('Error fetching activity:', error);
+            }
+        }
+
+        // Add an event listener to the button to fetch a new activity on click
+        document.getElementById('activity-button').addEventListener('click', fetchActivity);
+    </script>
+
+</body>
+</html>

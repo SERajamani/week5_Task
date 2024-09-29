@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Activity Fetcher</title>
+    <style>
+        /* Center the button and make it green */
+        #fetchActivityButton {
+            display: block;
+            margin: 20px auto; /* Center horizontally */
+            padding: 10px 20px;
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        /* Add hover effect */
+        #fetchActivityButton:hover {
+            background-color: darkgreen;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Random Activity Fetcher</h1>
+    <button id="fetchActivityButton">Get Random Activity</button>
+    <div id="activityContainer" style="text-align: center; margin-top: 20px;"></div>
+
+    <script>
+        document.getElementById('fetchActivityButton').addEventListener('click', fetchActivity);
+
+        async function fetchActivity() {
+            const apiUrl = 'https://bored-api.appbrewery.com/random';
+            const proxyUrl = 'https://api.allorigins.win/get?url=' + encodeURIComponent(apiUrl);
+            const activityContainer = document.getElementById('activityContainer');
+
+            // Clear previous activity
+            activityContainer.innerHTML = '';
+
+            try {
+                // Fetch the activity using the CORS proxy
+                const response = await fetch(proxyUrl);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                // Get the actual JSON response through the proxy
+                const data = await response.json();
+                const activityData = JSON.parse(data.contents);
+
+                // Process and display the activity
+                const activityHTML = `
+                    <p><strong>Type:</strong> ${activityData.type}</p>
+                    <p><strong>Participants:</strong> ${activityData.participants}</p>
+                    <p><strong>Price:</strong> ${activityData.price}</p>
+                    <p><strong>Accessibility:</strong> ${activityData.accessibility}</p>
+                    <p><strong>Link:</strong> <a href="${activityData.link}" target="_blank">${activityData.link}</a></p>
+                `;
+
+                activityContainer.innerHTML = activityHTML;
+
+            } catch (error) {
+                activityContainer.textContent = 'Something went wrong. Please try again.';
+                console.error('Error fetching data:', error);
+            }
+        }
+    </script>
+</body>
+</html>
